@@ -4,7 +4,9 @@ This is COMPLETELY UNFINISHED. As of this moment, it is not even Alpha, and comm
 
 ## Usage
 
+```
 var models = activerest(urlOrConfig, definitions);
+```
 
 The first parameter could be just a base URL, or a configuration object detailed below.
 
@@ -35,8 +37,8 @@ var pictures = models.picture.find(); 	// GET /pictures
 var picture = models.picture.get(1); 	// GET /pictures/1
 var newpic = new models.picture();
 
-picture.save();							// POST /pictures/1
-newpic.save();							// PUT /pictures
+picture.save();							// PUT /pictures/1
+newpic.save();							// POST /pictures
 ```
 
 The pluralization is automatic, but not entirely brilliant. It automatically appends an 's' unless the word ends in a y, as so:
@@ -48,13 +50,18 @@ puppy:			/puppies
 
 However, things are customizable.
 
+```
 var models = activerest(config, [{
 	name: 'picture',					// Name of the returned model
 	path: '/picture',					// Customize the path that the model will use
-	idProperty: 'picture_id',			// Customize the property used for the ID when updating
+	idProperty: 'picture_id',			// Customize the property used for the ID when updating.
+	newMethod: 'PUT',					// Override the method used when creating an object
+	findMethod: 'QUERY',				// Override the method used when finding an object
+	updateMethod: 'PATCH',				// Override the method used when updating an object
 	headers: null,						// Custom function or object to set the headers, overrides the default from config
 	children: ['exif', {				// Will default paths to /pictures/idProperty/exif
 		name: 'person',					// Define children just like definitions
 		path: '/people'
 	}]
 }]);
+```
