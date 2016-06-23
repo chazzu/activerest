@@ -4,12 +4,17 @@
   "description": "Provides ActiveRecord-like REST capabilities.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "author": "Dustin Ashby",
   "license": "MIT",
   "dependencies": {
-    "pluralize": "^2.0.0"
+    "pluralize": "^2.0.0",
+    "request": "^2.72.0"
   },
-  "repository": "https://github.com/chazzu/activerest"
+  "repository": "https://github.com/chazzu/activerest",
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "rewire": "^2.5.1"
+  }
 }
