@@ -13,14 +13,23 @@ The first parameter could be just a base URL, or a configuration object detailed
 ### Configuration
 
 ```
-var models = activerest({
-	url: urlString, 	// Default base URL to use
+var API = require('activerest');
 
-	headers: null,		// Could be an object containing header: value fields OR a function which returns an object
-						// The function will be called each time a REST request is made, good for complex
-						// authentication methods.
+var models = new api({
+	url: urlString, 		// Default base URL to use
 
-	idProperty: 'id', 	// When accessing an object, we assume the id property is 'id.' Override this here.
+	headers: null,			// Could be an object containing header: value fields OR a function which returns an object
+							// The function will be called each time a REST request is made, good for complex
+							// authentication methods. It will be called with the path and any post data.
+
+	getMethod: 'GET',		// Override the method used when getting an object
+	newMethod: 'PUT',		// Override the method used when creating an object
+	findMethod: 'GET',		// Override the method used when finding an object
+	updateMethod: 'PUT',	// Override the method used when updating an object
+
+	transform: null			// Would be a function of form function(req, cb); is passed in the entire request to transform
+							// as necessary for complex requests
+
 }, definitions);
 ```
 
@@ -41,11 +50,12 @@ picture.save();							// PUT /pictures/1
 newpic.save();							// POST /pictures
 ```
 
-The pluralization is automatic, but not entirely brilliant. It automatically appends an 's' unless the word ends in a y, as so:
+Model names are automatically pluralized into paths, using the [Pluralize](https://www.npmjs.com/package/pluralize) module.
 
 ```
 picture:		/pictures
 puppy:			/puppies
+person:			/people
 ```
 
 However, things are customizable.
@@ -55,13 +65,14 @@ var models = activerest(config, [{
 	name: 'picture',					// Name of the returned model
 	path: '/picture',					// Customize the path that the model will use
 	idProperty: 'picture_id',			// Customize the property used for the ID when updating.
+	getMethod: 'GET',					// Override the method used when getting an object
 	newMethod: 'PUT',					// Override the method used when creating an object
 	findMethod: 'QUERY',				// Override the method used when finding an object
 	updateMethod: 'PATCH',				// Override the method used when updating an object
 	headers: null,						// Custom function or object to set the headers, overrides the default from config
-	children: ['exif', {				// Will default paths to /pictures/idProperty/exif
-		name: 'person',					// Define children just like definitions
-		path: '/people'
-	}]
+	transform: null						// As above, this is the last function to be passed the request for transformation
+}, {
+	name: 'person',	
+	url: 'http://domain.com/people'		// Specify a completely different URL just for this
 }]);
 ```

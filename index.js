@@ -1,29 +1,43 @@
-var connection = require('./lib/connection'),
-	definition = require('./lib/definition'),
-	proto = require('./lib/prototype');
+var Connection = require('./lib/connection'),
+	Definition = require('./lib/definition'),
+	ModelFactory = require('./lib/modelfactory');
 
-module.exports = function(config, definitions) {
-	var models = {};
-
+function API(config, definitions) {
 	if (!config || (typeof config !== 'string' && typeof config !== 'object'))
 		throw new TypeError('Expecting config to be a string or object');
 
-	if (!definitions || typeof definitions.forEach === 'undefined')
+	if (!definitions || Array.isArray(definitions) === false)
 		throw new TypeError('Expecting definitions to be an array');
 
-	var connection = new Connection(config);
+	this.connection = new Connection(config);
+	this.definitions = build_definitions(definitions);
+	this.models = build_models(this);
 
-	build_models(connection, definitions, models);
+	// Set up shorthand
+	for (var name in this.models) {
+		this[name] = this.models[name];
+	}
+};
+
+function build_definitions(definitions) {
+	var defs = {};
+
+	definitions.forEach(function(def) {
+		def = new Definition(def);
+		defs[def.name] = def;
+	});
+
+	return defs;
+};
+
+function build_models(api) {
+	var models = {};
+
+	for (var name in api.definitions) {
+		models[name] = ModelFactory(api, api.definitions[name]);
+	};
 
 	return models;
 };
 
-function build_models(connection, definitions, models) {
-	definitions.forEach(function(def) {
-			def = new definition(def);
-			name = def.name;
-		}
-
-		models[name] = proto.bind(def, connection);
-	});
-};
+module.exports = API;
