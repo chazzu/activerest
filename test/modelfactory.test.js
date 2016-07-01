@@ -1,5 +1,5 @@
 var assert = require('assert'),
-	rewire = require("rewire");
+	rewire = require('rewire');
 
 describe('ModelFactory', function() {
 	describe('#ModelFactory', function() {

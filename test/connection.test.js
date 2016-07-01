@@ -26,5 +26,30 @@ describe('Connection', function() {
 
 			assert(conn instanceof Connection);
 		});
+
+		it('should have accessible newMethod', function() {
+			conn = new Connection({ url: 'http://localhost', newMethod: 'TEST' });
+			assert(conn.newMethod === 'TEST');
+		});
+
+		it('should have accessible delMethod', function() {
+			conn = new Connection({ url: 'http://localhost', delMethod: 'TEST' });
+			assert(conn.delMethod === 'TEST');
+		});
+
+		it('should have accessible getMethod', function() {
+			conn = new Connection({ url: 'http://localhost', getMethod: 'TEST' });
+			assert(conn.getMethod === 'TEST');
+		});
+
+		it('should have accessible updateMethod', function() {
+			conn = new Connection({ url: 'http://localhost', updateMethod: 'TEST' });
+			assert(conn.updateMethod === 'TEST');
+		});
+
+		it('should have accessible findMethod', function() {
+			conn = new Connection({ url: 'http://localhost', findMethod: 'TEST' });
+			assert(conn.findMethod === 'TEST');
+		});
 	});
 });
