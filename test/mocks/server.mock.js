@@ -36,16 +36,16 @@ server.del('/people/1', function(req, res) {
 	res.send('deleted');
 });
 
-server.put('/people/1', function(req, res) {
-	res.send('updated');
-});
-
 server.get('/people/2', function(req, res) {
 	res.send({
 		id: 2,
 		name: 'Dustin',
 		title: 'developer'
 	})
+});
+
+server.put('/people/2', function(req, res) {
+	res.send('updated');
 });
 
 server.get('/pictures/1', function(req, res) {

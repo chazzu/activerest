@@ -95,5 +95,16 @@ describe('ActiveRest', function() {
 				done();
 			});
 		});
+
+		it('should send a PUT request when saving an existing object', function(done) {
+			api.person.get(2, function(err, person) {
+				assert(err === null);
+				person.name = 'Test';
+				person.save(function(err, result) {
+					assert(result === 'updated');
+					done();
+				});
+			});
+		});
 	});
 });
