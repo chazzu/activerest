@@ -65,5 +65,18 @@ describe('Definitions', function() {
 
 			assert.equal(def.name, 'test');
 		});
+
+		it('should create children definitions', function() {
+			def = new definition({
+				name: 'picture',
+				children: [{
+					name: 'exif',
+					path: 'exif'
+				}]
+			});
+
+			assert(typeof def.children === 'object');
+			assert(def.children.exif.name === 'exif');
+		});
 	});
 });

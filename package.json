@@ -1,6 +1,6 @@
 {
   "name": "@dashby/activerest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides ActiveRecord-like REST capabilities.",
   "main": "index.js",
   "scripts": {

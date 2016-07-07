@@ -55,3 +55,11 @@ server.get('/pictures/1', function(req, res) {
 		file: 'some_photo.jpg'
 	});
 });
+
+server.get('/pictures/1/exif', function(req, res) {
+	res.send([{
+		id: 1,
+		name: 'location',
+		value: 'somewhere'
+	}]);
+});

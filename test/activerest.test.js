@@ -32,13 +32,19 @@ describe('ActiveRest', function() {
 
 	var api = new API({
 		url: 'http://localhost:8484'
-	}, [ 'picture', 'person' ]);
+	}, [{
+		name: 'picture',
+		children: [{
+			name: 'exif',
+			path: 'exif'
+		}]
+	}, 'person' ]);
 
 	describe('#get', function() {
 		it('should retrieve a picture by id', function(done) {
-			api.picture.get(1, function(err, picture) {
+			api.picture.get(1, function(err, pic) {
 				assert(err === null);
-				assert(picture.id === 1);
+				assert(pic.id === 1);
 				done();
 			});
 		});
@@ -73,7 +79,19 @@ describe('ActiveRest', function() {
 				assert(people[1].id === 4);
 				done();
 			});
-		});			
+		});
+
+		it('should retrieve exif by id, using the parent uri', function(done) {
+			api.picture.get(1, function(err, picture) {
+				picture.exif.find(function(err, result) {
+					assert(Array.isArray(result));
+					assert(result[0].id === 1);
+					assert(result[0].name === 'location');
+					assert(result[0].value === 'somewhere');
+					done();
+				});
+			});
+		});	
 	});
 
 	describe('#del', function() {
