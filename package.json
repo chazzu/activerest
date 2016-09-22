@@ -1,6 +1,6 @@
 {
   "name": "activerest",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides ActiveRecord-like REST capabilities.",
   "main": "index.js",
   "scripts": {
