@@ -27,8 +27,13 @@ var models = new api({
 	findMethod: 'GET',		// Override the method used when finding an object
 	updateMethod: 'PUT',	// Override the method used when updating an object
 
-	transform: null			// Would be a function of form function(req, cb); is passed in the entire request to transform
+	transform: null,		// Would be a function of form function(req, cb); is passed in the entire request to transform
 							// as necessary for complex requests
+
+	statics: {				// A key-value object which defines static objects that should be added to the model
+		count: function() { // An example of a function that will be added, such that Model.count calls this function
+		}
+	}
 
 }, definitions);
 ```
