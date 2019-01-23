@@ -56,6 +56,16 @@ describe('ActiveRest', function() {
 				done();
 			});
 		});
+
+		it('should return a functioning promise', function(done) {
+			let what = api.person.get(2).then(result => {
+				assert(result.id === 2)
+				done()
+			}).catch(err => {
+				assert(err == null)
+				done()
+			})
+		})
 	});
 
 	describe('#find', function() {
@@ -99,7 +109,7 @@ describe('ActiveRest', function() {
 			var person = new api.person({ id: 1 });
 			person.del(function(err, res) {
 				assert(err === null);
-				assert(res === '"deleted"');
+				assert(res === 'deleted');
 				done();
 			});
 		});

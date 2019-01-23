@@ -1,6 +1,6 @@
 {
   "name": "activerest",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Provides ActiveRecord-like REST capabilities.",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,8 @@
   "author": "Dustin Ashby",
   "license": "MIT",
   "dependencies": {
-    "async": "^2.0.0-rc.6",
-    "pluralize": "^2.0.0",
-    "request": "^2.72.0"
+    "cross-fetch": "^3.0.0",
+    "pluralize": "^2.0.0"
   },
   "repository": "https://github.com/chazzu/activerest",
   "devDependencies": {

@@ -27,8 +27,9 @@ var models = new api({
 	findMethod: 'GET',		// Override the method used when finding an object
 	updateMethod: 'PUT',	// Override the method used when updating an object
 
-	transform: null,		// Would be a function of form function(req, cb); is passed in the entire request to transform
-							// as necessary for complex requests
+	transform: null,		// Would be a function of form function(req); is passed in the entire request to transform
+							// as necessary for complex requests. You can resolve using the callback parameter passed
+							// in, or you can resolve by returning a promise.
 
 	statics: {				// A key-value object which defines static objects that should be added to the model
 		count: function() { // An example of a function that will be added, such that Model.count calls this function
@@ -47,13 +48,14 @@ var models = activerest(config, ['picture', 'note']);
 This will give you models.picture and models.note, which will use all the default values. Requests will be:
 
 ```
-var pictures = models.picture.find(); 	// GET /pictures
-var picture = models.picture.get(1); 	// GET /pictures/1
+models.picture.find((err, pictures) => {}); 	// GET /pictures
+models.picture.get(1).then(picture => {}); 	// GET /pictures/1
 var newpic = new models.picture();
 
-picture.save();							// PUT /pictures/1
 newpic.save();							// POST /pictures
 ```
+
+As in above examples, functions can accept a callback (which will receive (err, result)) but will also return a promise with the results.
 
 Model names are automatically pluralized into paths, using the [Pluralize](https://www.npmjs.com/package/pluralize) module.
 
