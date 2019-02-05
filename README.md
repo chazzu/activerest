@@ -1,7 +1,5 @@
 # activerest
 
-This is COMPLETELY UNFINISHED. As of this moment, it is not even Alpha, and commits are happening during development.
-
 ## Usage
 
 ```
